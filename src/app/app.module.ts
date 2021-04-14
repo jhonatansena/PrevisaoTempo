@@ -1,5 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,6 +14,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { BookmarksModule } from './pages/bookmarks/bookmarks.module';
 import { HomeModule } from './pages/home/home.module';
 import { environment } from '../environments/environment';
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   declarations: [
@@ -22,10 +26,13 @@ import { environment } from '../environments/environment';
     BrowserModule,
     AppRoutingModule,
     HomeModule,
+    HttpClientModule,
     BookmarksModule,
     StoreModule.forRoot({}),
     StoreModule.forRoot({}, {}),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    EffectsModule.forRoot([]),
+
   ],
   providers: [],
   bootstrap: [AppComponent]
