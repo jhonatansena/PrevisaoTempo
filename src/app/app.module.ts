@@ -44,4 +44,3 @@ import { UnitSelectorComponent } from 'src/app/pages/home/container/unit-selecto
 })
 export class AppModule {
 }
-
