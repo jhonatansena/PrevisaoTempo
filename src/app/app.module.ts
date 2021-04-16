@@ -20,27 +20,28 @@ import { reducers } from './shared/state/app.reducer';
 
 import {CustomRouterSerializer} from './shared/state/router/router.reducer';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { UnitSelectorComponent } from 'src/app/pages/home/container/unit-selector/unit-selector.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    
-    
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
-    HomeModule,
     HttpClientModule,
+    HomeModule,
     BookmarksModule,
     StoreModule.forRoot(reducers),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     EffectsModule.forRoot([]),
-    StoreRouterConnectingModule.forRoot({serializer: CustomRouterSerializer}),
-    BrowserAnimationsModule,
-
+    StoreRouterConnectingModule.forRoot({ serializer: CustomRouterSerializer }),
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
+

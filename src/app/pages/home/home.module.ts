@@ -11,11 +11,12 @@ import { NgModule, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {ReactiveFormsModule} from '@angular/forms';
 import { CurrentWeatherComponent } from './components/current-weather/current-weather.component';
+import { UnitSelectorComponent } from './container/unit-selector/unit-selector.component';
 
 
 
 @NgModule({
-  declarations: [HomePage, CurrentWeatherComponent],
+  declarations: [HomePage, CurrentWeatherComponent, UnitSelectorComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
