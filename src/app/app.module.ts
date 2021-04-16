@@ -15,6 +15,10 @@ import { BookmarksModule } from './pages/bookmarks/bookmarks.module';
 import { HomeModule } from './pages/home/home.module';
 import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { reducers } from './shared/state/app.reducer';
+
+import {CustomRouterSerializer} from './shared/state/router/router.reducer';
 
 @NgModule({
   declarations: [
@@ -28,10 +32,10 @@ import { EffectsModule } from '@ngrx/effects';
     HomeModule,
     HttpClientModule,
     BookmarksModule,
-    StoreModule.forRoot({}),
-    StoreModule.forRoot({}, {}),
+    StoreModule.forRoot(reducers),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     EffectsModule.forRoot([]),
+    StoreRouterConnectingModule.forRoot({serializer: CustomRouterSerializer}),
 
   ],
   providers: [],
