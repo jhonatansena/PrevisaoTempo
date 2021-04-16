@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DetailsPage } from './containers/details/details.page';
+import { DetailsPage } from '../details/containers/details/details.page';
 import { RouterModule } from '@angular/router';
 import { DetailsGuard } from './services/details.guard';
 import { ComponentsModule } from 'src/app/shared/components/components.module';
-import { DailyWeather } from './components/daily-weather/daily-weather.component/daily-weather.component.component';
+import { DailyWeatherComponent } from '../details/components/daily-weather/daily-weather/daily-weather.component';
 
 
 @NgModule({
@@ -19,8 +19,7 @@ import { DailyWeather } from './components/daily-weather/daily-weather.component
   ],
   declarations: [
     DetailsPage,
-    DailyWeather.ComponentComponent,
-    // DailyWeatherComponent,
+     DailyWeatherComponent,
   ],
   providers: [
     DetailsGuard,

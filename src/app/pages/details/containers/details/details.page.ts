@@ -1,43 +1,32 @@
-import { Injectable } from '@angular/core';
-import { Params } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 
 import { Store, select } from '@ngrx/store';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { combineLatest } from 'rxjs';
-import { mergeMap, map, catchError, withLatestFrom } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 import { AppState } from 'src/app/shared/state/app.reducer';
-import { WeatherService } from 'src/app/shared/services/weather.service';
+import { CityDailyWeather } from 'src/app/shared/models/weather.model';
 import * as fromDetailsActions from '../../state/details.actions';
-import * as fromRouterSelectors from 'src/app/shared/state/router/router.selectors';
+import * as fromDetailsSelectors from '../../state/details.selectors';
 
-@Injectable()
-export class DetailsEffects {
+@Component({
+  selector: 'jv-details',
+  templateUrl: './details.page.html',
+  styleUrls: ['./details.page.scss']
+})
+export class DetailsPage implements OnInit {
 
-  loadCurrentWeather$ = createEffect(() => this.actions$
-    .pipe(
-      ofType(fromDetailsActions.loadWeatherDetails),
-      withLatestFrom(this.store.pipe(select(fromRouterSelectors.selectRouterQueryParams))),
-      mergeMap(([, queryParams]: [any, Params]) =>
-        combineLatest([
-          this.weatherService.getCityWeatherByCoord(queryParams.lat, queryParams.lon),
-          this.weatherService.getWeatherDetails(queryParams.lat, queryParams.lon),
-        ])
-      ),
-      catchError((err, caught$) => {
-        this.store.dispatch(fromDetailsActions.loadWeatherDetailsFailed());
-        return caught$;
-      }),
-      map(([current, daily]) => {
-        const entity = daily;
-        entity.city = {...current.city, timeZone: daily.city.timeZone};
-        return fromDetailsActions.loadWeatherDetailsSuccess({ entity });
-      }),
-    )
-  );
+  details$: Observable<CityDailyWeather>;
+  loading$: Observable<boolean>;
+  error$: Observable<boolean>;
 
-  constructor(private actions$: Actions,
-              private store: Store<AppState>,
-              private weatherService: WeatherService) {
+  constructor(private store: Store<AppState>) {
+  }
+
+  ngOnInit() {
+    this.store.dispatch(fromDetailsActions.loadWeatherDetails());
+
+    this.details$ = this.store.pipe(select(fromDetailsSelectors.selectDetailsEntity));
+    this.loading$ = this.store.pipe(select(fromDetailsSelectors.selectDetailsLoading));
+    this.error$ = this.store.pipe(select(fromDetailsSelectors.selectDetailsError));
   }
 }
