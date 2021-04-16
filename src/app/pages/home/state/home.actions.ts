@@ -1,11 +1,15 @@
 import { createAction, props } from '@ngrx/store';
-import { Bookmark } from 'src/app/shared/models/bookmark.model';
 
-//import { Bookmark } from 'src/app/shared/models/bookmark.model';
+import { Bookmark } from 'src/app/shared/models/bookmark.model';
 
 export const loadCurrentWeather = createAction(
   '[Home] Load Current Weather',
   props<{ query: string }>(),
+);
+
+export const loadCurrentWeatherById = createAction(
+  '[Home] Load Current Weather By Id',
+  props<{ id: string }>(),
 );
 
 export const loadCurrentWeatherSuccess = createAction(
